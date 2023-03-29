@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package thayduc.quanlydancu.demo.repository;
 
 import java.util.Optional;
@@ -10,4 +11,7 @@ public interface ThanhToanRepository extends JpaRepository<HoaDon, Long> {
 
   @Override
   Optional<HoaDon> findById(Long aLong);
+=======
+package thayduc.quanlydancu.demo.repository;public interface ThanhToanRepository {
+>>>>>>> ce3622bd8e58cfebbf399660ee2299cc03bd2d0b
 }
