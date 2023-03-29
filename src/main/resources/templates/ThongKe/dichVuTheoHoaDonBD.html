@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="common/footer :: header-f"/>
+<body class="sb-nav-fixed">
+<nav th:replace="common/footer ::navbar-f">
+</nav>
+<div id="layoutSidenav">
+    <div th:replace="common/footer ::layout-f"></div>
+    <div id="layoutSidenav_content">
+        <div class="container page-content">
+            <form  th:action="@{/thong-ke/dich-vu}" method="POST">
+
+                <div class="row">
+                    <div class="col-sm-3">Ngày bắt đầu:</div>
+                    <div class="col-sm-3"><input type="text" name="startDate" id="startDate"> </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">Ngày kết thúc:</div>
+                    <div class="col-sm-3"><input type="text" name="endDate" id="endDate"> </div>
+                    <div class="col-sm-3"><input type="submit" value="Xem thống kê"></div>
+
+                </div>
+
+
+</form>
+        </div>
+
+
+
+
+        <footer th:replace="common/footer ::footer-f">
+        </footer>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script th:src="@{../js/datatables-simple-demo.js}"></script>
+<script type="text/javascript">
+
+    let listLabels=[], listInfo =[];
+
+    function showUser() {
+
+        fetch("/api/thong-ke/dich-vu-hoa-don", {
+            method: 'post',
+            body: JSON.stringify({
+                "startDate": document.getElementById("startDate").value,
+                "endDate": document.getElementById("endDate").value
+            }),
+            headers: {
+                "Content-Type": "application/json",
+            }
+        }).then(function (resAPI) {
+            console.log(resAPI)
+            return resAPI.json();
+
+        }).then(function (dataAPI) {
+            console.log(dataAPI);
+            let area = document.getElementById("showData");
+            for (var i = 0; i < dataAPI.length; i++) {
+
+                listLabels.push(dataAPI[i].tenDichVu)
+                listInfo.push(dataAPI[i].tongTien)
+            }
+            console.log(listLabels)
+            console.log(listInfo)
+
+        })
+
+
+    }
+    
+     function  inBieuDo(id, listLabels=[], listInfo =[]) {
+         const data = {
+             labels: listLabels,
+             datasets: [{
+                 label: 'Thống kê dich vụ theo doanh thu',
+                 data: listInfo,
+                 backgroundColor: [
+                     'rgb(255, 99, 132)',
+                     'rgb(54, 162, 235)',
+                     'rgb(255, 205, 86)'
+                 ],
+                 hoverOffset: 4
+             }]
+         };
+         const config = {
+             type: 'pie',
+             data: data,
+         };
+         let ctx = document.getElementById(id).getContext("2d")
+             new Chart(ctx, config)
+
+
+     }
+
+     window.onload=function () {
+         inBieuDo("myChart")
+
+     }
+
+</script>
+</body>
+</html>

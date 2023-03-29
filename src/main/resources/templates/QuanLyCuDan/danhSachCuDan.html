@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="common/footer :: header-f" />
+<body class="sb-nav-fixed">
+<nav th:replace="common/footer ::navbar-f" >
+</nav>
+<div id="layoutSidenav">
+  <div th:replace="common/footer ::layout-f"></div>
+  <div id="layoutSidenav_content">
+    <div class="container page-content">
+      <main style="margin-left: -27px;">
+      <div class="container-fluid px-4">
+        <h5 class="mt-4" style="color: black">DANH SÁCH CÁC CƯ DÂN </h5>
+
+
+
+        <div class="card mb-4">
+          <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+          </div>
+          <div class="card-body">
+            <table id="datatablesSimple" >
+              <thead>
+              <tr>
+              <tr>
+                <th style="width: 20px;">ID</th>
+                <th>Họ và tên</th>
+                <th>Ngày sinh</th>
+                <th>Số điện thoại</th>
+                <th>Chứng minh thư</th>
+                <th >Email</th>
+                <th>Trạng thái</th>
+                <th>Chọn</th>
+                <th>Chọn</th>
+              </tr>
+              </thead>
+              <tfoot>
+              <tr>
+                <th style="width: 20px;">ID</th>
+                <th>Họ và tên</th>
+                <th>Ngày sinh</th>
+                <th>Số điện thoại</th>
+                <th>Chứng minh thư</th>
+                <th >Email</th>
+                <th>Trạng thái</th>
+                <th>Chọn</th>
+                <th>Chọn</th>
+              </tr>
+              </tfoot>
+              <tbody>
+
+             <tr th:each="list : ${listCuDan}" >
+
+               <td th:text="${list.id}"></td>
+               <td th:text="${list.ten}"></td>
+               <td th:text="${#dates.format(list.ngaysinh,'dd-MM-yyyy')}"></td>
+               <td th:text="${list.soDT}"></td>
+               <td th:text="${list.cmt}" ></td>
+               <td th:text="${list.email}" ></td>
+               <td th:text="${list.trangthai}"></td>
+               <td><a style="color: #0b5ed7" th:href="@{/cu-dan/cap-nhat?id={id}(id=${list.id})}"><i class="fas fa-clone" ></i>Sửa</a></td>
+               <td><a style="color:#0a53be" th:href="@{/cu-dan/xoa?id={id}(id=${list.id})}"><i class="fa fa-trash"></i>Xóa</a></td>
+
+             </tr>
+
+
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+
+      </main>
+
+      <nav class="py-4 bg-white ">
+        <div class="container-fluid " style="margin-left: 13px;">
+          <button class="btn" style="background-color: #3dd5f3"><i class="fa fa-folder" ></i><span style="margin-left: 5px;color: blue; font-size: 15px;"> Xuất báo cáo</span></button>
+          <button class="btn" style="background-color: #3dd5f3"><i class="bi bi-back"></i><span style="margin-left: 5px;color: blue; font-size: 15px;"> Quay lại</span></button>
+        </div>
+      </nav>
+
+    </div>
+  </div>
+</div>
+
+</body>
+<footer th:replace="common/footer ::footer-f" >
+</footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="/js/scripts.js">
+  jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+      window.location = $(this).data("href");
+    });
+  });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+<script src="/assets/demo/chart-area-demo.js"></script>
+<script src="/assets/demo/chart-bar-demo.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+<script th:src="@{../js/datatables-simple-demo.js}"></script>
+</body>
+</html>

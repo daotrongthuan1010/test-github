@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="common/footer :: header-f"/>
+<body class="sb-nav-fixed">
+<nav th:replace="common/footer ::navbar-f">
+</nav>
+<div id="layoutSidenav">
+    <div th:replace="common/footer ::layout-f"></div>
+    <div id="layoutSidenav_content">
+        <div class="container page-content">
+            <form th:action="@{/hoa-don/them-hoa-don}" method="post" th:object="${hoaDon}" modelAttribute="hoaDon">
+                <fieldset>
+                    <legend class="center-block">
+                        THÊM HÓA ĐƠN
+                    </legend>
+
+
+                    <div class="form-group row">
+                        <label for="title" class="col-2 col-form-label text-right">Số đã dùng </label>
+                        <div class="col-6">
+                            <input type="text" th:field="*{soDaDung}" th:onkeyup="fun()" th:value="*{soDaDung}"class="form-control" id="soDaDung" name="soDaDung">
+                            <span th:if="${#fields.hasErrors('soDaDung')}" th:errorclass="error" th:errors="*{soDaDung}"
+                                  style="color: red"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="title" class="col-2 col-form-label text-right">Chọn dịch vụ </label>
+                        <div class="col-6">
+                            <select class="form-control" id="dichVuById" onclick="showDichVu()" name="dichVuById">
+                                <option value="0" selected disabled hidden>Chọn dv thanh tóan</option>
+                                <option th:each="item : ${list}"  th:value="${item.id}" th:text="${item.tendv}"></option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row" id="textComment">
+
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="title" class="col-2 col-form-label text-right">Họ và Tên </label>
+                        <div class="col-6">
+                                <input type="text" th:onkeyup="showUser()" id="nameSearch" name="nameSearch" data-toggle="dropdown">
+
+                        </div>
+                    </div>
+                    <select class="form-control" id="showUserSearch"  name="idUserSearch" >
+
+                    </select>
+
+                </fieldset>
+                <input type="submit" value="Xác Nhận thanh Toán">
+
+
+            </form>
+        </div>
+
+        <footer th:replace="common/footer ::footer-f">
+        </footer>
+    </div>
+</div>
+<script th:src="@{../js/datatables-simple-demo.js}"></script>
+<script type="text/javascript">
+
+    function showDichVu() {
+
+        fetch("/api/tim-kiem-dich-vu", {
+            method: 'post',
+            body: JSON.stringify({
+                "id": document.getElementById("dichVuById").value
+
+            }),
+            headers: {
+                "Content-Type": "application/json",
+            }
+        }).then(function (res) {
+            console.log(res)
+            return res.json();
+
+        }).then(function (data) {
+            console.log(data);
+            let area = document.getElementById("textComment");
+            area.innerHTML =
+                `
+                        <label for="title" class="col-2 col-form-label text-right">Đơn vị tính: </label>
+                        <input type="text" style="display: none" class="form-control" id="title" >
+                        <div class="col-6">
+                            <span >${data.donViTinh}</span>
+                        </div>
+
+
+
+    `+ `
+<div class="form-group row">
+    <label for="title" class="col-2 col-form-label text-right">Giá tiền: </label>
+    <input type="text" style="display: none" class="form-control" id="title" >
+                        <div class="col-6">
+                            <p id="giaTienMat" name="giaTienMat" >${data.giaTien}</p>
+                        </div>
+                        </div>
+
+`;
+
+
+        })
+
+
+    }
+    function fun() {
+       document.getElementById("soDaDung").value;
+        document.getElementById("nameSearch");
+        console.log(document.getElementById("ddlViewBy").value)
+
+
+    }
+    function showUser() {
+
+        fetch("/api/tim-kiem-dan-cu", {
+            method: 'post',
+            body: JSON.stringify({
+                "nameSearch": document.getElementById("nameSearch").value
+
+            }),
+            headers: {
+                "Content-Type": "application/json",
+            }
+        }).then(function (resAPI) {
+            console.log(resAPI)
+            return resAPI.json();
+
+        }).then(function (dataAPI) {
+            console.log(dataAPI)
+            let area = document.getElementById("showUserSearch");
+            for (var i = 0; i < dataAPI.length; i++) {
+                area.innerHTML =
+                    `
+
+        <option value="${dataAPI[i].id}"><p>${dataAPI[i].hoTen}</p> <p> ${dataAPI[i].email}</p></option>
+
+
+
+    ` +area.innerHTML;
+            }
+
+
+        })
+
+
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="common/footer :: header-f" />
+<body class="sb-nav-fixed">
+<nav th:replace="common/footer ::navbar-f" >
+</nav>
+<div id="layoutSidenav">
+    <div th:replace="common/footer ::layout-f"></div>
+    <div id="layoutSidenav_content">
+        <div class="container page-content">
+            <form th:action="@{/cu-dan/them-cu-dan}"  method="post" th:object="${cuDan}" modelAttribute="cuDan" >
+                <fieldset>
+                    <legend class="center-block" style="font-weight: bold">
+                        THÊM CƯ DÂN
+                    </legend>
+
+                    <div class="form-group row">
+                        <label for="title" class="col-2 col-form-label text-right">Họ và Tên </label>
+                        <div class="col-6">
+                            <input type="text" th:field="*{ten}" class="form-control" id="title" name="ten">
+                            <span th:if="${#fields.hasErrors('ten')}" th:errorclass="error" th:errors="*{ten}"  style="color: red"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="donvitinh" class="col-2 col-form-label text-right">Ngày sinh</label>
+                        <div class="col-6">
+                            <input type="date" th:field="*{ngaysinh}" class="form-control" id="title" name="ngaysinh">
+                            <span th:if="${#fields.hasErrors('ngaysinh')}" th:errorclass="error" th:errors="*{ngaysinh}"  style="color: red"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="giatien" class="col-2 col-form-label text-right">Số điện thoại</label>
+                        <div class="col-6">
+                            <input type="text" th:filed="*{soDT}" class="form-control" id="categories" name="soDT" path="id" data-role="tagsinput" >
+                            <span th:if="${#fields.hasErrors('soDT')}" th:errorclass="error" th:errors="*{soDT}"  style="color: red"></span>
+                        </div>
+
+                    </div>
+                    <div class="form-group row">
+                        <label for="giatien" class="col-2 col-form-label text-right">Chứng minh thư</label>
+                        <div class="col-6">
+                            <input type="text" th:filed="*{cmt}" class="form-control" id="categories" name="cmt" data-role="tagsinput">
+                            <span th:if="${#fields.hasErrors('cmt')}" th:errorclass="error" th:errors="*{cmt}"  style="color: red"></span>
+                        </div>
+                        <div class="col-4">
+                            <button type=button class="btn btn-primary btn-category badge badge-pill badge-primary mr-1 mb-1"
+                            ></button>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="giatien" class="col-2 col-form-label text-right">Email</label>
+                        <div class="col-6">
+                            <input type="text" th:filed="*{email}" class="form-control" id="categories" name="email" data-role="tagsinput">
+                            <span th:if="${#fields.hasErrors('email')}" th:errorclass="error" th:errors="*{email}"  style="color: red"></span>
+                        </div>
+                        <div class="col-4">
+                            <button type=button class="btn btn-primary btn-category badge badge-pill badge-primary mr-1 mb-1"
+                            ></button>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="giatien" class="col-2 col-form-label text-right">Trạng thái</label>
+                        <div class="col-6">
+                            <select style="width: 100%;height: 30px;" name="trangthai" th:field="*{trangthai}">
+                                <option value="Đang ở ">Đang ở</option>
+                                <option value="Đã chuyển ">Đã chuyển</option>
+                                <option value="Tạm trú ">Tạm trú</option>
+                            </select>
+                        </div>
+                        <div class="col-4">
+                            <button type=button class="btn btn-primary btn-category badge badge-pill badge-primary mr-1 mb-1"
+                            ></button>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="offset-2 col-6">
+                            <button type="submit" class="btn btn-success">Thêm</button>
+                            <a class="btn btn-danger" >Hủy</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <footer th:replace="common/footer ::footer-f" >
+        </footer>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="/js/scripts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+<script src="/assets/demo/chart-area-demo.js"></script>
+<script src="/assets/demo/chart-bar-demo.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+<script th:src="@{../js/datatables-simple-demo.js}"></script>
+</body>
+</html>

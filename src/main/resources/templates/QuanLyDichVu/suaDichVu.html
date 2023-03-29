@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="common/footer :: header-f" />
+<body class="sb-nav-fixed">
+<nav th:replace="common/footer ::navbar-f" >
+</nav>
+<div id="layoutSidenav">
+    <div th:replace="common/footer ::layout-f"></div>
+    <div id="layoutSidenav_content">
+        <div class="container page-content">
+            <form th:action="@{/dich-vu/cap-nhat}"  method="POST" th:object="${dichVu}" >
+                <fieldset>
+                    <legend class="center-block" style="margin-left: 50px; font-weight: bold">
+                       SỬA DỊCH VỤ
+                    </legend>
+                    <div class="form-group row" style="margin-top: 30px;">
+                        <div class="col-6">
+                            <input type="hidden" th:field="*{id}" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row" style="margin-top: 50px;">
+                        <label for="title" class="col-2 col-form-label text-right">Tên dịch vụ</label>
+                        <div class="col-6">
+                            <input type="text" th:field="*{tendv}" class="form-control" id="title" name="tendv">
+                        </div>
+                    </div>
+                    <div class="form-group row" style="margin-top: 50px;">
+                        <label for="title" class="col-2 col-form-label text-right">Đơn vị tính</label>
+                        <div class="col-6">
+                            <input type="text" th:field="*{donViTinh}" class="form-control" id="title" name="donViTinh">
+                        </div>
+                    </div>
+                    <div class="form-group row" style="margin-top: 50px;">
+                        <label for="title" class="col-2 col-form-label text-right">Giá tiền</label>
+                        <div class="col-6">
+                            <input type="text" th:field="*{giatien}" class="form-control" id="title" name="giatien">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-6">
+                            <input type="hidden" th:field="*{createdDate}" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-6">
+                            <input type="hidden" th:field="*{lastModifiedBy}" class="form-control">
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="form-group row" style="margin-top: 50px;">
+                        <div class="offset-2 col-6">
+                            <button type="submit" class="btn btn-success">Sửa</button>
+                            <a  href="/quanly/dsdichvu" style="margin-left: 50px;" class="btn btn-danger" >Hủy</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <footer th:replace="common/footer ::footer-f" >
+        </footer>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="/js/scripts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+<script src="/assets/demo/chart-area-demo.js"></script>
+<script src="/assets/demo/chart-bar-demo.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+<script th:src="@{../js/datatables-simple-demo.js}"></script>
+</body>
+</html>

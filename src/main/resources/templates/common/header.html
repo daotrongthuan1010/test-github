@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org./1999/xhtml" xmlns:sec="http://www.w3.org./1999/xhtml">
+<head th:fragment="common-header">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  
+  <title>Admin - Quanlytoanha</title>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Nunito|Roboto|Roboto+Condensed|Roboto+Slab" rel="stylesheet">  
+  <!-- Bootstrap core CSS -->
+  <link href="/css/bootstrap.min.css" rel="stylesheet">  
+  <!-- Tables plugin -->
+  <link href="/css/datatables.min.css" rel="stylesheet">  
+  <!-- Bootstrap tagsinput -->
+  <link href="/css/tagsinput.css" rel="stylesheet">  
+  <!-- Simple pagination -->
+  <link href="/css/simplePagination.css" rel="stylesheet" />  
+  <!-- Slick carousel -->  
+  <link href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" rel="stylesheet" />      
+  <link href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" rel="stylesheet" />      
+  <!-- Custom styles -->
+  <link href="/css/style.css" rel="stylesheet">
+    <!-- Feather icons -->
+  <script src="https://unpkg.com/feather-icons"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
+  
+</head>
+
+
+<body>
+  <div th:fragment="navbar">
+    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top shadow-sm">
+      <!-- <a class="navbar-brand" th:href="@{/}"><img width="150" height="30" src="/image/logo.png"></a>  -->
+      <a class="navbar-brand" style="color: limegreen; font-size: 28px;" th:href="@{/}">PTIT APP</a>
+      
+      <button class="navbar-toggler" type="button" data-toggle="collapse"
+        data-target="#navbarCollapse" aria-controls="navbarCollapse"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto font-weight-bold">
+          <li class="nav-item">
+            <a class="nav-link" style="color: limegreen; font-size: 22px;" th:href="@{/}"> Trang chủ</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"style="color: limegreen; font-size: 22px;" th:href="@{/store}"> Hệ thống thanh toán </a>
+          </li>
+          <li class="nav-item">          
+            <a class="nav-link"style="color: limegreen; font-size: 22px;" th:href="@{/thong-bao-cu-dan}">Thông Báo Cư Dân
+            <span class="badge badge-primary badge-pill" style="vertical-align: top;" ></span></a>
+          </li>                        
+        </ul>
+        <ul class="navbar-nav ml-auto font-weight-bold">          
+          <li class="nav-item">          
+            <a class="nav-link" sec:authorize="isAnonymous()" style="color: limegreen; font-size: 22px;"th:href="@{/login}">Đăng nhập </a>
+          </li>
+          <li class="nav-item">           
+            <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/my-profile}">Tài khoản</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}"> Đăng xuất </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" sec:authorize="hasRole('ADMIN')" th:href="@{/cu-dan/danh-sach-cu-dan}"> Quản Lý</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+  </div>
+
+  <div th:fragment="footer">
+    <footer class="footer_area">
+      <div class="container">
+        <div  class="row">
+          <div class="col-xl-5 col-12 col-md-7">
+            <div style="margin-top: 10px;" class="footer__add">
+              <div class="footer_title">
+                <h6 style="font-size: 20px;margin-left: -20px;">Thông tin PTIT APP </h6>
+              </div>
+
+              <ul style="list-style: none; margin-left: -20px;">
+                <li style="font-size: 17px;list-style: none; text-decoration: none;margin-left: -45px"><i class="fa fa-map-marker"></i>Địa chỉ: Km10, Đường Trần Phú,Q. Hà Đông, TP. Hà Nội
+                </li>
+                <li style="font-size: 17px;list-style: none;margin-left: -45px"><i class="fa fa-mobile-phone"></i> Hỗ trợ: Văn phòng Một cửa - PTIT</li>
+                <li style="font-size: 17px;list-style: none;margin-left: -45px"><i class="fa fa-phone"></i> Điện thoại: (012) 34568 9543 - (012) 3456 8974</li>
+                <li style="font-size: 17px; list-style: none;margin-left: -45px"><i class="fa fa-envelope"></i> Email:thuanptit1010.work@gmail.com</li>
+              </ul>
+            </div>
+          </div>
+          <!-- end column -->
+          <div class="col-xl-4 col-md-5 d-none d-xl-block d-md-block">
+            <div style="margin-top: 10px;" class="footer__face">
+              <div class="footer_title">
+                <h6 style="font-size: 20px;">FANPAGE FACEBOOK</h6>
+              </div>
+              <div class="fb-page" data-href="https://www.facebook.com/phonggiaovu" data-tabs="timeline"
+                   data-width="250" data-height="150" data-small-header="true" data-adapt-container-width="false"
+                   data-hide-cover="false" data-show-facepile="false">
+                <blockquote class="fb-xfbml-parse-ignore"><a
+                        href="https://www.facebook.com/phonggiaovu" style="color: deepskyblue; font-size: 17px; text-decoration: none;">Phòng Giáo vụ - PTIT</a>
+                </blockquote>
+              </div>
+            </div>
+          </div>
+          <!-- end column -->
+          <div class="col-xl-3 d-none d-xl-block">
+            <div style="margin-top: 10px;" class="footer__maps">
+              <div class="footer_title">
+                <h6 style="font-size: 20px;">BẢN ĐỒ</h6>
+              </div>
+
+              <iframe
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3725.2863597609035!2d105.78378015033248!3d20.981155285955584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135adb7ef3da391%3A0xd6f90c8723774843!2sPtit!5e0!3m2!1svi!2s!4v1617811658881!5m2!1svi!2s"
+                      width="100%" height="130" frameborder="0" style="border:0" allowfullscreen></iframe>
+            </div>
+          </div>
+          <!-- end column -->
+
+
+          <div class="col-12">
+            <div  style="font-size: 15px;" class="coppyright text-center">
+              Copyright 2022 © Tốt Nghiệp Đại Học
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </footer>
+  </div>
+
+
+  <div th:fragment="body-scripts">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>
+      window.jQuery
+          || document
+              .write('<script src="/docs/4.3/assets/js/vendor/jquery-slim.min.js"><\/script>')
+    </script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/datatables.min.js"></script>
+    <script src="/js/tagsinput.js"></script>
+    <script>feather.replace()</script>
+    <script type="text/javascript" src="/js/jquery.simplePagination.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script>
+    //prevent multiple form submission
+    $(function() {
+      $('form').submit(function(){
+        $("button[type='submit']", this)
+          .text("Please Wait...")
+          .attr('disabled', 'disabled');
+        return true;
+      });
+    });
+    </script>
+  
+  </div>
+
+</body>
+
+</html>

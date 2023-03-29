@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head th:replace="common/footer :: header-f" />
+<body class="sb-nav-fixed">
+<nav th:replace="common/footer ::navbar-f" >
+</nav>
+<style type="text/css">
+    body {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+    .update-status-form {
+        width: 100%;
+    }
+    .update-status-form .share {
+        -webkit-transition: 0.1s ease-out height;
+        -moz-transition: 0.1s ease-out height;
+        -ms-transition: 0.1s ease-out height;
+        -o-transition: 0.1s ease-out height;
+        transition: 0.1s ease-out height;
+        clear: both;
+        background: white;
+        border: 2px solid #dddddd;
+        margin-bottom: 10px;
+        position: relative;
+    }
+
+    .update-status-form .share .arrow {
+        position: absolute;
+        width: 14px;
+        height: 10px;
+        left: 4px;
+        display: inline;
+        top: -10px;
+        -webkit-transition: 0.3s ease-out all;
+        -moz-transition: 0.3s ease-out all;
+        -ms-transition: 0.3s ease-out all;
+        -o-transition: 0.3s ease-out all;
+        transition: 0.3s ease-out all;
+    }
+
+    .update-status-form .share .arrow .fa{
+        font-size:20px;
+        color:#ddd;
+    }
+
+    .update-status-form .post-types li a {
+        color: #085083;
+        text-decoration: none;
+    }
+
+    .update-status-form .post-types li a.active {
+        color: #404040;
+    }
+
+    .update-status-form .post-types {
+        padding-left: 5px;
+    }
+
+    .update-status-form ul {
+        list-style: none;
+        margin-bottom: 9px;
+    }
+
+    .update-status-form .post-types li {
+        display: inline;
+        margin-right: 10px;
+    }
+
+    .message {
+        border-radius: 0;
+        border: none;
+    }
+    .panel {
+        border-radius: 0;
+        border: none;
+        margin-bottom: 0;
+    }
+
+    .privacy-dropdown {
+        width: 100px;
+    }
+
+    .no-radius{
+        border-radius:0px;
+    }
+</style>
+</head>
+<body class="sb-nav-fixed">
+<div id="layoutSidenav">
+    <div id="layoutSidenav_content">
+        <div class="container page-content">
+            <div class="share">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <img th:src="${user.imgAvatar}" class="rounded-circle" alt="Cinque Terre" width="50" height="50">
+                        <a href="#" th:text="${#strings.capitalize(user.hoTen)}"></a>
+                    </div>
+                </div>
+            <form th:action="@{/quan-ly/dang-bai}"  method="post" role="form" enctype="multipart/form-data" class="update-status-form">
+                <ul class="post-types">
+                    <li class="post-type">
+                        <a class="status" title="" href="#"><i class="fa fa-file"></i> Share an Update</a>
+                    </li>
+                    <li class="post-type">
+                       <i  class="fa fa-camera" > </i> Add photos
+                    </li>
+                </ul>
+                <div class="share">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="">
+                                <textarea name="noiDung" cols="40" rows="10" id="status_message" class="form-control message" style="height: 62px; overflow: hidden;" placeholder="Bạn muốn nói gì ?"></textarea>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <div class="form-group">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-default"><i class="icon icon-map-marker"></i> Location</button>
+                                            <input  type="file" name="file"  class="btn btn-default"><i class="icon icon-map-marker"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <input type="submit" name="submit" value="Đăng bài" class="btn btn-primary btn-sm no-radius">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <footer id="dateTimeLine" th:each="items : ${list}" class="py-4 bg-light mt-auto dataTime">
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div style="display: contents">
+                            <div>  <img th:src="${user.imgAvatar}" class="rounded-circle" alt="Cinque Terre" width="50" height="50"></div>
+                        <div style="display: inline">
+                            <div>  <a style="text-decoration: none" href="#" th:text="${#strings.capitalize(user.hoTen)}"></a></div>
+                            <div>  <span><i   style="font-size: 11px; opacity: 80%"  th:text="${items.createdDate}"></i></span></div>
+
+                        </div>
+                            <div class="col-sm-9"></div>
+                        </div>
+
+
+
+                    </div>
+
+                    <p th:text="${items.noiDung}"></p>
+                    <img th:src="${items.image}" style="height: 400px;"/>
+                </div>
+            </div>
+
+
+
+
+
+        </footer>
+    </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="/js/scripts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+<script src="/assets/demo/chart-area-demo.js"></script>
+<script src="/assets/demo/chart-bar-demo.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+<script th:src="@{../js/datatables-simple-demo.js}"></script>
+<script src="/js/moment.js"></script>
+<script type="text/javascript">
+
+    window.onload = function abc(){
+        let dates = document.querySelectorAll("#dataTimeLine > span")
+        for (let i =0;i<dates.length;i++){
+            let d = dates[i];
+            d.innerText = moment(d.innerText).fromNow()
+        }
+    }
+
+
+
+</script>
+</body>
+</html>

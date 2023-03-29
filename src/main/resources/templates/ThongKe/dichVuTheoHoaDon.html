@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="common/footer :: header-f"/>
+<body class="sb-nav-fixed">
+<nav th:replace="common/footer ::navbar-f">
+</nav>
+<div id="layoutSidenav">
+    <div th:replace="common/footer ::layout-f"></div>
+    <div id="layoutSidenav_content">
+        <div class="container page-content">
+            <h5>THỐNG KÊ DOANH THU THEO TỪNG DỊCH VỤ </h5>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tên dịch vụ</th>
+                    <th>Tổng tiền</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="table-primary text-black" th:each="item : ${listHoaDon}">
+                    <td th:text="${item.id}"></td>
+                    <td th:text="${item.tenDichVu}"></td>
+                    <td th:text="${item.tongTien}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <div><h5>BIỂU ĐỒ THỐNG KÊ DOANH THU THEO TỪNG DỊCH VỤ TỪ <SPAN th:text="${startDate}"></SPAN> ĐẾN <SPAN th:text="${endDate}"></SPAN> </h5></div>
+            <div style="width: 50%; height: 50%">
+                <canvas id="myChart"></canvas>
+            </div>
+
+        </div>
+
+
+        <footer th:replace="common/footer ::footer-f">
+        </footer>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script th:src="@{../js/datatables-simple-demo.js}"></script>
+
+<script   th:inline="javascript" >
+        let listLabels=[], listInfo =[];
+        /*<![CDATA[*/
+        /*[# th:each="theme : ${listHoaDon}"]*/
+listLabels.push([[${theme.tenDichVu}]]); //not working
+        listInfo.push([[${theme.tongTien}]]);
+    /*[/]*/
+    /*]]>*/
+        console.log(listLabels);
+        console.log(listInfo);
+
+
+
+
+
+
+    function  inBieuDo(id, listLabels=[], listInfo =[]) {
+        const data = {
+            labels: listLabels,
+            datasets: [{
+                label: 'Thống kê dich vụ theo doanh thu',
+                data: listInfo,
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)',
+                    'rgb(29, 194, 154)',
+                    'rgb(253, 142, 70)'
+                ],
+                hoverOffset: 4
+            }]
+        };
+        const config = {
+            type: 'pie',
+            data: data,
+        };
+        let ctx = document.getElementById(id).getContext("2d")
+            new Chart(ctx, config)
+
+
+    }
+
+    window.onload=function () {
+        inBieuDo("myChart",listLabels, listInfo)
+
+    }
+
+</script>
+</body>
+</html>

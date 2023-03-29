@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="common/footer :: header-f" />
+<body class="sb-nav-fixed">
+<nav th:replace="common/footer ::navbar-f" >
+</nav>
+<div id="layoutSidenav">
+    <div th:replace="common/footer ::layout-f"></div>
+    <div id="layoutSidenav_content">
+        <div class="container page-content">
+            <form th:action="@{/dich-vu/them-dich-vu}" style="margin-right: 300px" method="post" th:object="${dichVu}" >
+                <fieldset>
+                    <legend class="center-block">
+                        Thêm dịch vụ
+                    </legend>
+
+                    <div class="form-group row">
+                        <label for="title" class="col-2 col-form-label text-right">Tên dịch vụ</label>
+                        <div class="col-6">
+                            <input type="text" th:field="*{tendv}" class="form-control" id="title" name="tendv">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="donvitinh" class="col-2 col-form-label text-right">Đơn vị tính</label>
+                        <div class="col-6">
+                            <input type="text" th:field="*{donViTinh}" class="form-control" id="title" name="donvitinh">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="giatien" class="col-2 col-form-label text-right">Giá tiền</label>
+                        <div class="col-6">
+                            <input type="text" th:filed="*{giatien}" class="form-control" id="categories" name="giatien" data-role="tagsinput">
+                        </div>
+                        <div class="col-4">
+                            <button type=button class="btn btn-primary btn-category badge badge-pill badge-primary mr-1 mb-1"
+                                  ></button>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <div class="offset-2 col-6">
+                            <button type="submit" class="btn btn-success">Thêm</button>
+                            <a class="btn btn-danger" >Hủy</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            <main style="margin-left: -27px;">
+                <div class="container-fluid px-4">
+                    <h5 class="mt-4" style="color: black">DANH SÁCH CÁC DỊCH VỤ </h5>
+
+
+
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-table me-1"></i>
+                            DANH SÁCH CÁC DỊCH VỤ
+                        </div>
+                        <div class="card-body">
+                            <table id="datatablesSimple" >
+                                <thead>
+                                <tr>
+                                    <th style="width: 20px;">ID</th>
+                                    <th>Tên dịch vụ</th>
+                                    <th>Giá</th>
+                                    <th>Đơn vị tính</th>
+                                    <th style="width: 100px;">Thời gian tạo</th>
+                                    <th style="width: 100px;">Thời gian sửa</th>
+                                    <th>Chọn</th>
+                                    <th>Chọn</th>
+
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th style="width: 20px;">ID</th>
+                                    <th>Tên dịch vụ</th>
+                                    <th>Giá</th>
+                                    <th>Đơn vị tính</th>
+                                    <th>Chọn</th>
+                                    <th>Chọn</th>
+                                </tr>
+                                </tfoot>
+                                <tbody>
+
+
+
+
+                                <tr th:each="list : ${listDichVu}" >
+
+                                    <td th:text="${list.id}"></td>
+                                    <td th:text="${list.tendv}"></td>
+                                    <td th:text="${list.giatien}"></td>
+                                    <td th:text="${list.donViTinh}"></td>
+
+                                    <td th:text="${list.createdDate}" ></td>
+                                    <td th:text="${list.lastModifiedBy}" ></td>
+                                    <td><a style="color: #0b5ed7" th:href="@{/dich-vu/cap-nhat?id={id}(id=${list.id})}"><i class="fas fa-clone" ></i>Sửa</a></td>
+                                    <td><a style="color:#0a53be" th:href="@{/dich-vu/xoa?id={id}(id=${list.id})}"><i class="fa fa-trash"></i>Xóa</a></td>
+
+
+                                </tr>
+
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+        <footer th:replace="common/footer ::footer-f" >
+        </footer>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="/js/scripts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+<script src="/assets/demo/chart-area-demo.js"></script>
+<script src="/assets/demo/chart-bar-demo.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+<script th:src="@{../js/datatables-simple-demo.js}"></script>
+</body>
+</html>

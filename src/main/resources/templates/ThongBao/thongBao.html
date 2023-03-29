@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org./1999/xhtml">
+<head th:replace="common/header :: common-header" />
+
+
+<body class="d-flex flex-column" >
+<div th:replace="common/header :: navbar"> </div>
+</nav>
+<div id="layoutSidenav" style="margin-left: 10px">
+    <div id="layoutSidenav_nav">
+<footer id="dataTime" th:each="items : ${list}" class="py-4 bg-light mt-auto">
+    <div class="panel panel-default">
+        <div class="panel-body">
+
+            <div class="row">
+                <div style="display: contents">
+                    <div>  <img th:src="${items.imageAvatar}" class="rounded-circle" alt="Cinque Terre" width="50" height="50"></div>
+                    <div style="display: inline">
+                        <div>  <a style="text-decoration: none" href="#" th:text="${#strings.capitalize(items.hoTen)}"></a></div>
+                        <div>  <p id="timeLine"  style="font-size: 11px; opacity: 80%" th:text="${items.lastModifiedDate}"></p></div>
+
+                    </div>
+                    <div class="col-sm-9"></div>
+                </div>
+
+            </div>
+            <p th:text="${items.noiDung}"></p>
+            <img th:src="${items.image}" style="height: 400px;"/>
+        </div>
+        <div>
+            <div >
+            <p style="color: #0d6efd">Viết bình luận: </p>
+                <div  th:text="${items.id}" id="baiVietId" name="baiVietId"></div>
+            <div><textarea name="content" placeholder="Nhập nội dung..." id="content" ></textarea></div>
+            <input type="button"  th:onclick="addComment([[${items.id}]])" value="Gửi bình luận">
+            </div>
+        </div>
+    </div>
+
+
+<div id="textComment"></div>
+
+
+
+</footer>
+    </div>
+</div>
+
+
+
+
+<div th:replace="common/header :: body-scripts"> </div>
+
+<script type="text/javascript">
+    function addComment(idBaiViet) {
+        fetch("test/comment", {
+            method: 'post',
+            body: JSON.stringify({
+                "content": document.getElementById("content").value,
+                "idBaiViet": idBaiViet
+            }),
+            headers: {
+                "Content-Type": "application/json",
+            }
+        }).then(function (res) {
+           console.log(res)
+            return res.json();
+
+        }).then(function (data) {
+            console.log(data);
+            var tr=[];
+            for (var i = 0; i < data.length; i++) {
+                let area = document.getElementById("textComment");
+                area.innerHTML=
+                    `<div>
+        <div class="row" >
+          <div style="display: contents">
+                <div>  <img src="${data[i].images}" class="rounded-circle" alt="Cinque Terre" width="50" height="50"></div>
+                <div style="display: inline">
+                    <div>  <a style="text-decoration: none" href="#" ">${data[i].hoTen}</a></div>
+                    <div>  <p id="timeLine"  style="font-size: 11px; opacity: 80%" >${data[i].createDate}</p></div>
+                    <div><p>${data[i].content}</p></div>
+                </div>
+                <div class="col-sm-9"></div>
+            </div>
+        </div>
+    </div>` +area.innerHTML;
+            }
+
+        })
+
+
+    }
+
+
+</script>
+</body>
+</html>
